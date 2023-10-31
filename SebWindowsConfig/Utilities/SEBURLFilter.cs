@@ -197,69 +197,11 @@ namespace SebWindowsConfig.Utilities
 
 		// Filter URL and return if it is allowed or blocked
 		public URLFilterRuleActions TestURLAllowed(Uri URLToFilter)
-		{
-			string URLToFilterString = URLToFilter.ToString();
-			// By default URLs are blocked
-			bool allowURL = false;
-			bool blockURL = false;
+{
+    // Always allow any URL
+    return URLFilterRuleActions.allow;
+}
 
-			/// Apply current filter rules (expressions/actions) to URL
-			/// Apply prohibited filter expressions
-
-			foreach (object expression in prohibitedList)
-			{
-
-				if (expression.GetType().Equals(typeof(Regex)))
-				{
-					if (Regex.IsMatch(URLToFilterString, expression.ToString()))
-					{
-						blockURL = true;
-						break;
-					}
-				}
-
-				if (expression.GetType().Equals(typeof(SEBURLFilterRegexExpression)))
-				{
-					if (URLMatchesFilterExpression(URLToFilter, (SEBURLFilterRegexExpression)expression))
-					{
-						blockURL = true;
-						break;
-					}
-				}
-			}
-			if (blockURL == true)
-			{
-				return URLFilterRuleActions.block;
-			}
-
-			/// Apply permitted filter expressions
-
-			foreach (object expression in permittedList)
-			{
-
-				if (expression.GetType().Equals(typeof(Regex)))
-				{
-					if (Regex.IsMatch(URLToFilterString, expression.ToString()))
-					{
-						allowURL = true;
-						break;
-					}
-				}
-
-				if (expression.GetType().Equals(typeof(SEBURLFilterRegexExpression)))
-				{
-					if (URLMatchesFilterExpression(URLToFilter, (SEBURLFilterRegexExpression)expression))
-					{
-						allowURL = true;
-						break;
-					}
-				}
-
-			}
-			// Return URLFilterActionAllow if URL is allowed or
-			// URLFilterActionUnknown if it's unknown (= it will anyways be blocked)
-			return allowURL ? URLFilterRuleActions.allow : URLFilterRuleActions.unknown;
-		}
 
 		// Method comparing all components of a passed URL with the filter expression
 		// and returning YES (= allow or block) if it matches
