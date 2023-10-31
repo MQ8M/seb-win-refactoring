@@ -17,8 +17,7 @@ namespace SafeExamBrowser.Lockdown.FeatureConfigurations.RegistryConfigurations.
 	{
 		protected override IEnumerable<RegistryConfigurationItem> Items => new []
 		{
-			new RegistryConfigurationItem($@"HKEY_USERS\{SID}\Software\VMware, Inc.\VMware VDM\Client", "EnableShade", 0, 1),
-			new RegistryConfigurationItem($@"HKEY_USERS\{SID}\Software\Policies\VMware, Inc.\VMware VDM\Client", "EnableShade", "False", "True")
+
 		};
 
 		public VmwareOverlayConfiguration(Guid groupId, ILogger logger, string sid, string userName) : base(groupId, logger, sid, userName)
